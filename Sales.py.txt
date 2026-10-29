@@ -1,0 +1,32 @@
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
+data = {
+    "Product": ["Laptop", "Mobile", "Tablet", "Laptop", "Mobile"],
+    "Quantity": [2, 5, 3, 1, 4],
+    "Price": [50000, 15000, 20000, 50000, 15000]
+}
+
+df = pd.DataFrame(data)
+
+df["Revenue"] = df["Quantity"] * df["Price"]
+
+print("SALES DATA ANALYSIS")
+print("-------------------")
+print(df)
+
+print("\nTotal Revenue:", df["Revenue"].sum())
+
+product_sales = df.groupby("Product")["Revenue"].sum()
+print("\nRevenue by Product:")
+print(product_sales)
+
+print("\nBest-Selling Product by Revenue:",
+      product_sales.idxmax())
+
+product_sales.plot(kind="bar", title="Revenue by Product")
+plt.xlabel("Product")
+plt.ylabel("Revenue")
+plt.tight_layout()
+plt.show()
